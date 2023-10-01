@@ -1,33 +1,51 @@
 #include "sort.h"
 
 /**
- * bubble_sort - bubble sorting in an ascending order
- * @array: array header
- * @size: array size
- *
- * Return: null
+ * swap_ints - Swap two integers in an array.
+ * @a: The first integer to swap.
+ * @b: The second integer to swap.
  */
+
+void swap_ints(int *a, int *b)
+{
+	int tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+ * bubble_sort - Sort an array of integers in ascending order.
+ * @array: An array of integers to sort.
+ * @size: The size of the array.
+ *
+ * Description: Prints the array after each swap.
+ */
+
+/*
+Time Complexity: O(n^2)
+*/
 void bubble_sort(int *array, size_t size)
 {
-	int x = 0, temp = 0, max = 0, swapped = 0;
+	size_t i, len = size;
+	bool bubbly = false;
 
-	if (!array || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
-	max = size - 1;
-
-	for (; x < max; ++x)
+	while (bubbly == false)
 	{
-		if (array[x] > array[x + 1])
+		bubbly = true;
+		for (i = 0; i < len - 1; i++)
 		{
-			temp = array[x];
-			array[x] = array[x + 1];
-			array[x + 1] = temp;
-			swapped = 1;
-			print_array(array, size);
+			if (array[i] > array[i + 1])
+			{
+				swap_ints(array + i, array + i + 1);
+				print_array(array, size);
+				bubbly = false;
+			}
 		}
-
-		if (swapped == 1 && x == max - 1)
-			x = -1, swapped = 0, --max;
+		len--;
 	}
 }
